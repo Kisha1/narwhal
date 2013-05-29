@@ -7,20 +7,24 @@ class UserQuery {
             case "Login" : return $this->Login($user);
             case "GetID" : return $this->Id($user);
             case "FreeReg" : return $this->FreeReg($user);
+            case "GetAll" : return $this->GetAll();
         }
     }
-    
-    public function SetQuery($query, $user){
-        switch($query){
+
+    public function SetQuery($query, $user) {
+        switch ($query) {
             case "add": return $this->AddUser($user);
         }
     }
-    
-    private function AddUser($usermodel){
-        return 'INSERT INTO users (name,surname,account,password,mail,birthday)
-            VALUES("'.$usermodel->GetName().'","'.$usermodel->GetSurname().'","'.
-                $usermodel->GetAcc().'","'.$usermodel->GetPassword().'","'.
-                $usermodel->GetMail().'","'.$usermodel->GetBirthday().'");';
+
+    private function AddUser($usermodel) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        return 'INSERT INTO users (name,surname,account,password,mail,birthday,
+            registration_date,admin_lvl,ban,ban_duration,last_login,ip) VALUES("'
+                . $usermodel->GetName() . '","' . $usermodel->GetSurname() . '","'
+                . $usermodel->GetAcc() . '","' . $usermodel->GetPassword() . '","' .
+                $usermodel->GetMail() . '","' . $usermodel->GetBirthday() . '","'
+                . time() . '","uuu","false","0","0","' . $ip . '");';
     }
 
     private function FreeReg($account) {
@@ -33,6 +37,10 @@ class UserQuery {
 
     private function Id($account) {
         return 'SELECT id FROM users WHERE account="' . $account . '";';
+    }
+    
+    private function GetAll(){
+        return 'SELECT * FROM users;';
     }
 
 }

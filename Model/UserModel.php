@@ -3,7 +3,7 @@
 class UserModel {
 
     private $name, $surname, $mail, $birthday;
-    private $account, $password;
+    private $account, $password, $id;
 
     public function UserModel($name, $surname, $account, $password, $mail, $birthday) {
         $this->name = $name;
@@ -16,6 +16,10 @@ class UserModel {
     // GETTERY
     public function GetName() {
         return $this->name;
+    }
+    
+    public function GetId(){
+        return $this->id;
     }
 
     public function GetSurname() {
@@ -56,6 +60,10 @@ class UserModel {
     
     public function SetBirthday($birthday){
         $this->birthday = $birthday;
+    }
+    
+    public function SetId($id){
+        $this->id = $id;
     }
 
 }
