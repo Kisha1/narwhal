@@ -1,4 +1,5 @@
 <?php
+require 'Database/SQL/MenuQuery.php';
 require 'Model/ArticleCategoryModel.php';
 require 'Database/SQL/ArticleQuery.php';
 require 'Database/SQL/UserQuery.php';
