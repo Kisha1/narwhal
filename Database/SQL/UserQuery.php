@@ -1,22 +1,27 @@
 <?php
 
+/**
+ * @author Winitrix
+ * @class UserQuery
+ * Jednoduchá třída, která vrací SQL dotazy. Potom jí nahradím knihovnou.
+ */
 class UserQuery {
 
+    /**
+     * 
+     * @param type $query nějakej string
+     * @param type $user uživatel většinou UserModel objekt
+     */
     public function GetQuery($query, $user) {
         switch ($query) {
             case "Login" : return $this->Login($user);
             case "GetID" : return $this->Id($user);
             case "FreeReg" : return $this->FreeReg($user);
             case "GetAll" : return $this->GetAll();
+            case "Add": return $this->AddUser($user);
         }
     }
-
-    public function SetQuery($query, $user) {
-        switch ($query) {
-            case "add": return $this->AddUser($user);
-        }
-    }
-
+    // vrací SQL dotaz na přídání uživatele
     private function AddUser($usermodel) {
         $ip = $_SERVER['REMOTE_ADDR'];
         return 'INSERT INTO users (name,surname,account,password,mail,birthday,
@@ -26,20 +31,20 @@ class UserQuery {
                 $usermodel->GetMail() . '","' . $usermodel->GetBirthday() . '","'
                 . time() . '","uuu","false","0","0","' . $ip . '");';
     }
-
+    // vrací dotaz jestli už uživatel neexistuje
     private function FreeReg($account) {
         return 'SELECT account FROM users WHERE account="' . $account . '";';
     }
-
+    // vrací dotaz, který zjistí jestli se schodují pass s loginem
     private function Login($account) {
         return 'SELECT password FROM users WHERE account="' . $account . '";';
     }
-
+    // vrací sql dotaz, která zjistí id uživatele
     private function Id($account) {
         return 'SELECT id FROM users WHERE account="' . $account . '";';
     }
-    
-    private function GetAll(){
+    // vrací SQL dotaz, který zjisti všechny uživatele
+    private function GetAll() {
         return 'SELECT * FROM users;';
     }
 
