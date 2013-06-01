@@ -4,7 +4,7 @@ require '../Database/SQL/ArticleQuery.php';
 require '../Database/Query.php';
 require '../Database/Connection.php';
 require '../Model/ArticleModel.php';
-require '../Model/ArticleCategoryModel.php';
+require '../Model/CategoryModel.php';
 
 if (isset($_GET['method'])) {
     new Articles($_POST, $_GET['method']);
@@ -39,10 +39,10 @@ class Articles {
     // Editace kategorie článků
     private function EditArticleCategory($post) {
         if (isset($post['name']) && isset($post['description']) &&
-                isset($post['picture']) &&
-                isset($post['articles'])) {
+            isset($post['picture']) &&
+            isset($post['articles'])) {
             $this->db = new Connection();
-            $model = new ArticleCategoryModel($post['name'], $post['description'], $post['picture'], 0);
+            $model = new CategoryModel($post['name'], $post['description'], $post['picture'], 0);
             $model->SetId($post['articles']);
             $this->db->EditArticleCategory($model);
         }
@@ -51,7 +51,7 @@ class Articles {
     private function AddArticleCategory($post) {
         if (isset($post['name']) && isset($post['description']) && isset($post['picture'])) {
             $this->db = new Connection();
-            $model = new ArticleCategoryModel($post['name'], $post['description'], $post['picture'], time());
+            $model = new CategoryModel($post['name'], $post['description'], $post['picture'], time());
             $this->db->AddArticleCategory($model);
         }
     }
@@ -72,7 +72,7 @@ class Articles {
     // editace článku
     private function EditArticle($post) {
         if (isset($post['name']) && isset($post['survey']) && isset($post['description']) &&
-                isset($post['picture']) && isset($post['category']) && isset($post['articles'])) {
+            isset($post['picture']) && isset($post['category']) && isset($post['articles'])) {
             $this->db = new Connection();
             $model = new ArticleModel($post['name'], $post['survey'], $post['description'], 0, "false", $post['picture'], $post['category']);
             $model->SetId($post['articles']);
@@ -82,7 +82,7 @@ class Articles {
     // přidání nového článku
     private function AddArticles($post) {
         if (isset($post['name']) && isset($post['survey']) && isset($post['description']) &&
-                isset($post['picture']) && isset($post['category']) && isset($post['tag'])) {
+            isset($post['picture']) && isset($post['category']) && isset($post['tag'])) {
 
             $this->db = new Connection();
             $model = new ArticleModel($post['name'], $post['survey'], $post['description'], time(), "false", $post['picture'], $post['category']);

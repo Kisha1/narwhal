@@ -7,11 +7,11 @@ require '../Model/UserModel.php';
 require 'Encryption.php';
 
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['mail']) &&
-        isset($_POST['account']) && isset($_POST['password']) && isset($_POST['password2'])) {
+    isset($_POST['account']) && isset($_POST['password']) && isset($_POST['password2'])) {
 
-    new Registration($_POST['name'], $_POST['surname'], $_POST['account'], 
-            $_POST['password'], $_POST['password2'], $_POST['mail'], $_POST['year']
-            , $_POST['month'], $_POST['day']);
+    new Registration($_POST['name'], $_POST['surname'], $_POST['account'],
+        $_POST['password'], $_POST['password2'], $_POST['mail'], $_POST['year']
+        , $_POST['month'], $_POST['day']);
 }
 
 class Registration {
@@ -32,7 +32,7 @@ class Registration {
         if ($acc['account'] == $account) return true;
         else return false;
     }
-    
+
     private function GetDate($y, $m, $d){
         return $y . "-" . $m . "-". $d;
     }

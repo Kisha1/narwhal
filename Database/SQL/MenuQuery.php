@@ -1,8 +1,9 @@
 <?php
+
 /**
-* @author Kisha
-* @class MenuQuery
-*/
+ * @author Kisha
+ * @class MenuQuery
+ */
 class MenuQuery {
 
     public function GetQuery($query, $menu) {
@@ -16,9 +17,9 @@ class MenuQuery {
     }
 
     private function AddMenuItem($menu) {
-        return 'INSERT INTO menu (link,name,visibility,position)
-            VALUES ("' . $menu->GetLink() . '", "' . $menu->GetName() . '",
-                "' . $menu->GetVisibility() . '", "' . ($this->GetLastPosition() + 1) . '");';
+        return 'INSERT INTO menu (link,name,visibility,type,position)
+            VALUES ("' . $menu->GetLink() . '", "' . $menu->GetName() . '", "' . $menu->GetVisibility() . '", 
+                "' . $menu->GetType() . '", "' . ($this->GetLastPosition() + 1) . '");';
     }
 
     // vrátí poslední pozici v menu
@@ -28,9 +29,13 @@ class MenuQuery {
     }
 
     private function EditMenuItem($menu) {
-        return 'UPDATE menu SET link="' . $menu->GetLink() . '", name="'
-                . $menu->GetName() . '", visibility="' . $menu->GetVisibility() .
-                '", position="' . $menu->GetPosition() . '" WHERE id="' . $menu->GetId() . '";';
+        return 'UPDATE menu SET 
+            link="' . $menu->GetLink() . '",
+            name="' . $menu->GetName() . '",
+            visibility="' . $menu->GetVisibility() . '",
+            type="' . $menu->GetType() . '",
+            position="' . $menu->GetPosition() . '" 
+            WHERE id="' . $menu->GetId() . '";';
     }
 
     private function DeleteMenuItem($id) {

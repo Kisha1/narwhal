@@ -13,9 +13,9 @@ class Menu {
 
     private $db;
     private $query;
-    
-    public function Menu($post,$method){
-        switch($method){
+
+    public function Menu($post, $method) {
+        switch ($method) {
             case "add": $this->AddMenuItem($post);
                 break;
             case "edit": $this->EditMenuItem($post);
@@ -24,10 +24,10 @@ class Menu {
     }
 
     private function AddMenuItem($post) {
-        if (isset($post['link']) && isset($post['name']) && isset($post['visibility'])) {
+        if (isset($post['link']) && isset($post['name']) && isset($post['visibility']) && isset($post['type'])) {
             $this->db = new Connection();
             $this->query = new MenuQuery();
-            $model = new MenuModel($post['link'], $post['name'], $post['visibility'], ($this->query
+            $model = new MenuModel($post['link'], $post['name'], $post['visibility'], $post['type'], ($this->query
                             ->GetQuery("getlast", NULL)));
             $this->db->AddMenuItem($model);
         }
@@ -35,9 +35,9 @@ class Menu {
 
     private function EditMenuItem($post) {
         if (isset($post['link']) && isset($post['name']) && isset($post['visibility']) &&
-                isset($post['position']) && isset($post['nameselect'])) {
+                isset($post['type']) && isset($post['position']) && isset($post['nameselect'])) {
             $this->db = new Connection();
-            $model = new MenuModel($post['link'], $post['name'], $post['visibility'], $post['position']);
+            $model = new MenuModel($post['link'], $post['name'], $post['visibility'], $post['type'], $post['position']);
             $model->SetId($post['nameselect']);
             $this->db->EditMenuItem($model);
         }

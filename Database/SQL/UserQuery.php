@@ -8,8 +8,7 @@
 class UserQuery {
 
     /**
-     * 
-     * @param type $query nějakej string
+     *
      * @param type $user uživatel většinou UserModel objekt
      */
     public function GetQuery($query, $user) {
@@ -26,10 +25,10 @@ class UserQuery {
         $ip = $_SERVER['REMOTE_ADDR'];
         return 'INSERT INTO users (name,surname,account,password,mail,birthday,
             registration_date,admin_lvl,ban,ban_duration,last_login,ip) VALUES("'
-                . $usermodel->GetName() . '","' . $usermodel->GetSurname() . '","'
-                . $usermodel->GetAcc() . '","' . $usermodel->GetPassword() . '","' .
-                $usermodel->GetMail() . '","' . $usermodel->GetBirthday() . '","'
-                . time() . '","uuu","false","0","0","' . $ip . '");';
+        . $usermodel->GetName() . '","' . $usermodel->GetSurname() . '","'
+        . $usermodel->GetAcc() . '","' . $usermodel->GetPassword() . '","' .
+        $usermodel->GetMail() . '","' . $usermodel->GetBirthday() . '","'
+        . time() . '","uuu","false","0","0","' . $ip . '");';
     }
     // vrací dotaz jestli už uživatel neexistuje
     private function FreeReg($account) {

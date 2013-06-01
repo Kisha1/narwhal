@@ -13,12 +13,13 @@ class Query {
 
     private $UserQuery;
     private $ArticleQuery;
+    private $PhotoQuery;
 
     // @param account podívá se do databáze jestli údaje souhlasí (login)
     public function UserIsEmpty($account) {
         $this->UserQuery = new UserQuery();
         return mysql_fetch_array(mysql_query(
-                        $this->UserQuery->GetQuery("Login", $account)));
+            $this->UserQuery->GetQuery("Login", $account)));
     }
 
     // vrací uživatelské ID z databáze
@@ -26,7 +27,7 @@ class Query {
     public function UserGetId($account) {
         $this->UserQuery = new UserQuery();
         return mysql_fetch_array(mysql_query(
-                        $this->UserQuery->GetQuery("GetID", $account)));
+            $this->UserQuery->GetQuery("GetID", $account)));
     }
 
     // podívá se do databáze jestli tam už nějaká uživatel s takovým nickem
@@ -34,7 +35,7 @@ class Query {
     public function FreeReg($account) {
         $this->UserQuery = new UserQuery();
         return mysql_fetch_array(mysql_query(
-                        $this->UserQuery->GetQuery("FreeReg", $account)));
+            $this->UserQuery->GetQuery("FreeReg", $account)));
     }
 
     // přídá uživatele do databáze (registrace)
@@ -50,7 +51,7 @@ class Query {
         $i = 0;
         $this->UserQuery = new UserQuery();
         $users = mysql_query(
-                $this->UserQuery->GetQuery("GetAll", null));
+            $this->UserQuery->GetQuery("GetAll", null));
         $array = array();
         while ($user = mysql_fetch_array($users)) {
             $array[$i] = new UserModel($user['name'], $user['surname'], $user['account'], $user['password'], $user['mail'], $user['birthday']);
@@ -84,7 +85,7 @@ class Query {
         $i = 0;
         $this->ArticleQuery = new ArticleQuery();
         $articles = mysql_query(
-                $this->ArticleQuery->GetQuery("getall", null));
+            $this->ArticleQuery->GetQuery("getall", null));
         $array = array();
         while ($artc = mysql_fetch_array($articles)) {
             $array[$i] = new ArticleModel($artc['name'], $artc['survey'], $artc['description'], $artc['date'], $artc['is_show'], $artc['picture'], $artc['category']);
@@ -117,10 +118,10 @@ class Query {
         $i = 0;
         $this->ArticleQuery = new ArticleQuery();
         $articles = mysql_query(
-                $this->ArticleQuery->GetCategoryQuery("getall", null));
+            $this->ArticleQuery->GetCategoryQuery("getall", null));
         $array = array();
         while ($artc = mysql_fetch_array($articles)) {
-            $array[$i] = new ArticleCategoryModel($artc['name'], $artc['description'], $artc['picture'], $artc['registration_date']);
+            $array[$i] = new CategoryModel($artc['name'], $artc['description'], $artc['picture'], $artc['registration_date']);
             $array[$i]->SetId($artc['id']);
             $i++;
         }
@@ -165,11 +166,39 @@ class Query {
         $i = 0;
         $this->MenuQuery = new MenuQuery();
         $MenuItems = mysql_query(
-                $this->MenuQuery->GetQuery("getall", null));
+            $this->MenuQuery->GetQuery("getall", null));
         $array = array();
         while ($mitc = mysql_fetch_array($MenuItems)) {
-            $array[$i] = new ArticleCategoryModel($mitc['link'], $mitc['name'], $mitc['visibility'], $mitc['position']);
+            $array[$i] = new CategoryModel($mitc['link'], $mitc['name'], $mitc['visibility'],$mitc['type'], $mitc['position']);
             $array[$i]->SetId($mitc['id']);
+            $i++;
+        }
+        return $array;
+    }
+
+    public function AddPhoto($photo){
+        $this->PhotoQuery = new PhotoQuery();
+        mysql_query($this->PhotoQuery->GetQuery("AddPhoto", $photo));
+    }
+
+    public function EditPhoto($photo){
+        $this->PhotoQuery = new PhotoQuery();
+        mysql_query($this->PhotoQuery->GetQuery("EditPhoto", $photo));
+    }
+
+    public function DeletePhoto($id){
+        $this->PhotoQuery = new PhotoQuery();
+        mysql_query($this->PhotoQuery->GetQuery("DeletePhoto", $id));
+    }
+
+    public function GetAllPhotos(){
+        $i = 0;
+        $this->PhotoQuery = new PhotoQuery();
+        $photos = mysql_query($this->PhotoQuery->GetQuery("getall", null));
+        $array = array();
+        while($photo = mysql_fetch_array($photos)){
+            $array[$i] = new PhotoModel($photo['picture'], $photo['album'], $photo['description']);
+            $array[$i]->SetId($photo['id']);
             $i++;
         }
         return $array;

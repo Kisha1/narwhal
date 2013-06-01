@@ -36,9 +36,9 @@ class ArticleQuery {
     // upraví článek očekává objekt třídy ArticleModel
     private function EditArticle($article) {
         return 'UPDATE articles SET name="' . $article->GetName() . '", survey="'
-                . $article->GetSurvey() . '", description="' . $article->GetDescription() .
-                '", picture="' . $article->GetImage() . '", category="' . $article->GetCategory() .
-                '" WHERE id="' . $article->GetId() . '";';
+        . $article->GetSurvey() . '", description="' . $article->GetDescription() .
+        '", picture="' . $article->GetImage() . '", category="' . $article->GetCategory() .
+        '" WHERE id="' . $article->GetId() . '";';
     }
     // smaže článek očekává id článku
     private function DeleteArticle($id) {
@@ -48,7 +48,7 @@ class ArticleQuery {
     private function AddArticle($article) {
         return 'INSERT INTO articles (name,survey,description,picture,category,date,is_show)
             VALUES("' . $article->GetName() . '","' . $article->GetSurvey() . '","' . $article->GetDescription()
-                . '","' . $article->GetImage() . '","' . $article->GetCategory() . '","' . time() . '","false");';
+        . '","' . $article->GetImage() . '","' . $article->GetCategory() . '","' . time() . '","false");';
     }
     // vrátí všechny články
     private function GetAllArticles() {
@@ -62,13 +62,13 @@ class ArticleQuery {
     private function AddArticleCategory($category) {
         return 'INSERT INTO articles_category(name,description,picture,registration_date)
             VALUES("' . $category->GetName() . '","' . $category->GetDescription() .
-                '","' . $category->GetImage() . '","' . $category->GetDate() . '");';
+        '","' . $category->GetImage() . '","' . $category->GetDate() . '");';
     }
     // edituje kategorii článku očekává objekt třídy ArticleCategoryModel
     private function EditArticlesCategory($category) {
         return 'UPDATE articles_category SET name="' . $category->GetName() .
-                '", description="' . $category->GetDescription() . '", picture="' .
-                $category->GetImage() . '" WHERE id="' . $category->GetId() . '";';
+        '", description="' . $category->GetDescription() . '", picture="' .
+        $category->GetImage() . '" WHERE id="' . $category->GetId() . '";';
     }
     // smaže kategorii článků očekává IDčko
     private function DeleteArticlesCategory($id) {
@@ -85,11 +85,11 @@ class ArticleQuery {
     // přidá tag očekává jeho jméno
     private function AddTag($tag) {
         return 'INSERT INTO tags (name) VALUES("' . $tag . '");';
-    }  
+    }
     // přidá novej tag do articles_tags (idčko tagu a jméno článku)
     public function AddTagArticles($articlename, $tagId) {
         return 'INSERT INTO articles_tags (tag_id,article_name) VALUES("' . $tagId .
-                '","' . $articlename . '");';
+        '","' . $articlename . '");';
     }
 
 }
